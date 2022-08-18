@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <title></title>
+    <style media="screen">
+      pre {
+      padding: 1em;
+      border: 3px double green;
+      background: #90ee90;
+      }
+
+      pre.fail {
+      border-color: red;
+      background: #ffb6c1;
+      }
+
+      code {
+      font-size: .9em;
+      white-space: pre;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" class="m-5">
+      <div class="d-flex justify-content-center">
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-12 m-1">
+              <form @submit.prevent="post">
+                <div class="card">
+                  <div class="card-header">
+                    Encript Code -----
+                    <label for="">Encript</label>
+                    <input v-model="cript" type="radio" name="cript" value="encript" required>
+                    <label for="">Decript</label>
+                    <input v-model="cript" type="radio" name="cript" value="decript" required>
+                  </div>
+                  <div class="card-body">
+                    <textarea v-model="code" class="form-control" name="name" rows="8" cols="80" required></textarea>
+                  </div>
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-" name="button">Encode o decode</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="col-12 m-1">
+              <div class="card">
+                <div class="card-header">
+                  Encript Code
+                </div>
+                <div class="card-body">
+                  <pre>
+                    <code id="rtn">
+
+                    </code>
+                  </pre>
+                </div>
+                <div class="card-footer">
+                  <button type="button" class="btn btn-default" name="button"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 m-1">
+          <iframe src="js-escapes/index.html" width="100%" height="800px"></iframe>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="assets/js/jquery.min.js" charset="utf-8"></script>
+  <script src="assets/js/bootstrap.min.js" charset="utf-8"></script>
+  <script src="assets/js/vue.js" charset="utf-8"></script>
+  <script src="assets/js/axios.min.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    new Vue({
+      el:'#app',
+      data(){
+        return{
+          cript:'',
+          code:'',
+          rtn_code:''
+        }
+      },
+      methods:{
+        post:function() {
+          axios.post('data.php',{cript:this.cript,code:this.code}).then(resp =>{
+            $("#rtn").html(resp.data);
+          });
+        }
+      }
+    })
+  </script>
+</html>
