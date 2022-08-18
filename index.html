@@ -55,9 +55,6 @@
                 </div>
                 <div class="card-body">
                   <pre>
-                    <code id="rtn">
-
-                    </code>
                   </pre>
                 </div>
                 <div class="card-footer">
@@ -90,7 +87,7 @@
       methods:{
         post:function() {
           axios.post('data.php',{cript:this.cript,code:this.code}).then(resp =>{
-            $("#rtn").html(resp.data);
+            $("pre").html(resp.data);
           });
         }
       }
